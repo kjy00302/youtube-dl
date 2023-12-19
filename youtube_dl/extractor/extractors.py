@@ -219,6 +219,7 @@ from .chirbit import (
     ChirbitIE,
     ChirbitProfileIE,
 )
+from .chzzk import ChzzkVodIE
 from .cinchcast import CinchcastIE
 from .cinemax import CinemaxIE
 from .ciscolive import (
