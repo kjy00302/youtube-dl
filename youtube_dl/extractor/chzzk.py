@@ -17,7 +17,7 @@ class ChzzkVodIE(InfoExtractor):
             'ext': 'ts',
             'title': '플러리의 라이브 방송',
             'uploader_id': 'fe558c6d1b8ef3206ac0bc0419f3f564',
-            'uploader': '플러리 Flurry',
+            'uploader': '플러리',
             'timestamp': 1702992423,
             'upload_date': '20231219',
             'duration': 54,
