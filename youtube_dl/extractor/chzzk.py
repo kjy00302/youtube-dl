@@ -21,7 +21,22 @@ class ChzzkVodIE(InfoExtractor):
             'timestamp': 1702992423,
             'upload_date': '20231219',
             'duration': 54,
+            'age_limit': 0,
         }
+    }, {
+        'url': 'https://chzzk.naver.com/video/10106',
+        'info_dict': {
+            'id': '10106',
+            'ext': 'ts',
+            'title': '240105-1',
+            'uploader_id': '17aa057a8248b53affe30512a91481f5',
+            'uploader': '김도 KimDoe',
+            'timestamp': 1704468746,
+            'upload_date': '20240106',
+            'duration': 4484,
+            'age_limit': 18,
+        },
+        'skip': 'Age-restricted video',
     }]
 
     def chzzk_callapi(self, path, video_id):
@@ -37,8 +52,14 @@ class ChzzkVodIE(InfoExtractor):
         video_id = self._match_id(url)
 
         vod_data = self.chzzk_callapi(
-            '/service/v1/videos/' + video_id, video_id)
+            '/service/v2/videos/' + video_id, video_id)
         channel_data = vod_data['channel']
+
+        is_adult = vod_data.get('adult', False)
+        if is_adult and not vod_data['videoId']:
+            raise ExtractorError(
+                'Video is age-restricted. Login required.',
+                expected=True)
 
         formats = []
         mpd_quary = {
@@ -63,4 +84,5 @@ class ChzzkVodIE(InfoExtractor):
             'uploader_id': channel_data.get('channelId'),
             'duration': vod_data.get('duration'),
             'view_count': vod_data.get('readCount'),
+            'age_limit': 18 if is_adult else 0
         }
