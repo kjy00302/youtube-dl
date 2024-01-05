@@ -45,7 +45,7 @@ class ChzzkVodIE(InfoExtractor):
         if resp['code'] != 200:
             raise ExtractorError(
                 'chzzk api call returned %d: %s' %
-                (resp['code'], resp['message']), expected=True)
+                (resp['code'], resp['message']))
         return resp['content']
 
     def _real_extract(self, url):
